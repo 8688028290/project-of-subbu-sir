@@ -1,19 +1,15 @@
 const express=require("express")
 const dao=require("./usersdao")
+const enqdao=require("./enqdao.js")
+
 const app=express()
 
 app.use(express.urlencoded({extended:true}));
 app.use(express.json());
-
+/*********************************       *insert   *********************************** */
 app.post("/cruser",function(req,res){
 
-  var  user={
-             "username":req.body.username,
-             "Password":req.body.Password,
-             "Roll":req.body.Roll
-            }
-  
-  dao.addUser(user)
+dao.addUser(req.body)
 
   .then(function(msg){
     res.send(msg);
@@ -26,7 +22,7 @@ app.post("/cruser",function(req,res){
 
 })
 
-/****************************** delete                              */
+/****************************** delete   *********************************************                          */
 
 
 app.delete("/dluser",function(req,res){
@@ -45,6 +41,9 @@ app.delete("/dluser",function(req,res){
   
   })
 
+
+  /**************************************** All User  ********************************************** */
+
 app.get("/allUser",function(req,res){
     dao.allUsers()
     .then(function(data){
@@ -59,6 +58,55 @@ app.get("/allUser",function(req,res){
 
 
 
+
+/************************ENQIURE*********************************** */
+
+
+app.post("/crenq",function(req,res){
+
+
+  enqdao.addEnq(req.body)
+
+  .then(function(msg){
+    res.send(msg);
+    
+  })
+  
+  .catch(function(err){
+    res.send(err);
+  })
+
+})
+
+
+
+app.delete("/dlenq",function(req,res){
+
+    
+  enqdao.delEnq(req.body.id)
+
+  .then(function(msg){
+    res.send(msg);
+    
+  })
+  
+  .catch(function(err){
+    res.send(err);
+  })
+
+})
+
+app.get("/allenq",function(req,res){
+  enqdao.allEnq()
+  .then(function(data){
+
+      res.send(data);
+  })
+
+  .catch(function(err){
+      res.send(err)
+  })
+})
 
 
 
