@@ -6,7 +6,8 @@
     <title>Enquires</title>
     <link rel="icon" href="https://cdn-icons-png.flaticon.com/128/9289/9289379.png">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-        
+    <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+
 </head>
 <body>
     <h2 class="bg-success text-white text-center mt-5">Enquires</h2>
@@ -14,7 +15,7 @@
        <form class="form-control w-50">
 
         <label for="" class="form-label">Name</label>
-        <input type="text" name="Name" id="Name" class="form-control ">
+        <input type="text" name="Name" id="Name" class="form-control " required focus()>
         <label for="" class="form-label">Contact No</label>
         <input type="text" name="Contact" id="Contact" class="form-control ">
         <label for="" class="form-label">Email</label>
@@ -30,14 +31,28 @@
     </div>
     <script>
      /*   document.getElementById("b1").addEventListener("click",function(){
-            alert("hello world");
-        })
-*/
+            
+         })
+ 
+     var focus=document.getElementById("Name");
+      focus.focus();
+     */
 
-        document.getElementById("b1").onclick=function(){
-            alert("hello world");
+       $("#b1").click(function(){
+        $("#Name").focus()
+
+        var enq={
+            "Name":$("#Name").val()
         }
-    </script>
+        $.ajax({
+            method:"POST",
+            URL:"http://http://localhost:3000/crenq",
+            data:enq
+        })
+    })
+
+  
+     </script>
                 
 </body>
 </html>
